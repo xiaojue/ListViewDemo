@@ -1,0 +1,124 @@
+<template name='tpl'>
+    <view class="page">
+        <safe-area class="header">
+            <text class="header__title">APICloud</text>
+        </safe-area>
+        <scroll-view class="main">
+
+            <text class="h1" onClick={this.handleClick}>{{text}}</text>
+            <view class="item" v-for="[key,name,value] in list">
+                <text class="item__text">{{name}}: {{value}}</text>
+            </view>
+
+        </scroll-view>
+        <safe-area class="footer">
+            <text class="footer__text">Copyright &copy; </text>
+            <text class="footer__text">2014</text>
+            <text class="footer__text">-</text>
+            <text class="footer__text">{{year}}</text>
+        </safe-area>
+
+    </view>
+</template>
+<script>
+export default {
+    name: "tpl",
+    apiready() {
+        api.setStatusBarStyle({
+            style: "light",
+            color:"-"
+        });
+    },
+    data() {
+        return {
+            text: "Hello APICloud",
+            year: new Date().getFullYear()
+        };
+    },
+    computed: {
+        list() {
+            const apiNames = {
+                version: "引擎版本",
+                systemType: "系统类型",
+                systemVersion: "系统版本",
+                deviceModel: "设备型号",
+                deviceName: "设备名称",
+                operator: "运营商名称",
+                connectionType: "网络状态",
+                winName: "窗口名字",
+                winWidth: "窗口宽度",
+                winHeight: "窗口高度",
+                appId: "应用ID",
+                appName: "应用名称",
+                appVersion: "应用版本"
+            };
+
+            return Object.entries(apiNames).map(item => {
+                return [...item, api[item[0]]];
+            });
+        }
+    },
+    methods: {
+        handleClick(e) {
+            api.toast({
+                msg: this.data.text,
+                location:"middle"
+            });
+        }
+    }
+};
+</script>
+<style>
+.page {
+    height: 100%;
+    background-color: white;
+}
+.header {
+    background: #81a9c3;
+    justify-content: center;
+    align-items: center;
+}
+.header__title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+}
+
+.main {
+    flex: 1;
+    padding: 15px;
+}
+
+.h1 {
+    font-size: 24px;
+}
+
+.item {
+    flex-direction: row;
+    padding: 10px 0;
+}
+.item__text {
+    color: #333;
+    white-space: nowrap;
+}
+
+.item__value {
+    margin-left: 5px;
+}
+
+.footer {
+    background: #81a9c3;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__text {
+    color: #fff;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+</style>

@@ -1,0 +1,132 @@
+<template name='tpl'>
+    <view class="page">
+        <safe-area class="header">
+            <text class="header__title">APICloud</text>
+        </safe-area>
+        <list-view class="main" id="listView">
+            <cell class="cell">
+                <view class="left">
+                    <image class="image" src={item.artwork}></image>
+                </view>
+                <view class="right">
+                    <text class="title">{item.title}</text>
+                    <text class="subtitle">{item.artist},{item.year}</text>
+                </view>
+            </cell>
+        </list-view>
+        <safe-area class="footer">
+            <text class="footer__text">Copyright &copy; </text>
+            <text class="footer__text">2014</text>
+            <text class="footer__text">-</text>
+        </safe-area>
+
+    </view>
+</template>
+<script>
+export default {
+    name: "tpl",
+    apiready() {
+        api.setStatusBarStyle({
+            style: "light",
+            color:"-"
+        });
+        var album = {
+            artwork: "https://iph.href.lu/60x60?fg=666666&bg=cccccc",
+            title: "It's title",
+            artist: "describe",
+            year: "2021",
+        };
+        var albums = Array(1000);
+        albums.fill(album);
+        var listView = document.getElementById('listView');
+        listView.load({
+            data:albums
+        });
+    }
+};
+</script>
+<style>
+.image {
+    width: 60px;
+    height:60px;
+}
+.page {
+    height: 100%;
+    background-color: white;
+}
+.header {
+    background: #81a9c3;
+    justify-content: center;
+    align-items: center;
+}
+.header__title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+}
+
+.main {
+    flex: 1;
+    padding: 15px;
+}
+
+.h1 {
+    font-size: 24px;
+}
+
+.item {
+    flex-direction: row;
+    padding: 10px 0;
+}
+.item__text {
+    color: #333;
+    white-space: nowrap;
+}
+
+.item__value {
+    margin-left: 5px;
+}
+
+.footer {
+    background: #81a9c3;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__text {
+    color: #fff;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.cell {
+    padding: 8px;
+    height: 60px;
+    border-bottom: 0.5px solid #ddd;
+    background-color: #fff;
+     flex-direction: row;
+}
+.title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #000;
+}
+.subtitle {
+    color: #333;
+}
+.footer {
+    justify-content: center;
+    align-items: center;
+}
+.left {
+    flex:1;
+    width:60px;
+}
+.right {
+    flex:4;
+}
+</style>
